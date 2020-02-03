@@ -1,0 +1,1121 @@
+@charset "UTF-8";
+@import 'reset';
+@import url('https://fonts.googleapis.com/css?family=Libre+Franklin:400,700|Raleway:400,600,700|Roboto+Slab:400,700');
+
+$color1: #f8ebe3; //header, footer, boxshadow form, submitbuttons, toggle borders, toggle text
+$color2: #000000; //links, sub menues, footer hover
+$color3: #e2cabb; //background toggle
+$color4: #ffffff; //backgroundcolor
+$color5: black; //text footer, text submitbutton, menu
+$color6: white; //infotext
+$color7: #b27044; //hover
+$color8: #F6F6F6;
+ 
+$textColor: #2f2c2c;
+$boxColor: #fefbfd; //box, form
+$buttonColor: #d6f7fa; 
+$buttonTextColor: grey;
+$shadow: 2px 3px 5px darkgrey; 
+
+$font1: 'Roboto Slab', 'Times', serif; //headings
+$font2: 'Raleway', 'Verdana', sans-serif; //textfont
+$font3: 'Libre Franklin', 'Verdana', sans-serif; //menu, footer, toggle, image
+$font4: 'Didot'; //headerText 
+$font5: 'Palatino Linotype', 'serif'; //Infodelen
+$font6: 'Copperplate Gothic Light', 'serif'; //Infodelen text
+
+//MEDIA QUERIES 
+@mixin mq($mqValue...) {
+	@if length($mqValue) == 1 {
+		@media screen and (max-width: nth($mqValue, 1)) {
+			@content;
+		}
+	}
+	@if length($mqValue) == 2 {
+		@media screen and (max-width: nth($mqValue, 1)) and (min-width: nth($mqValue, 2)) {
+			@content;
+		}
+	}
+	//Det finns säkert något bättre sätt att få med bara min-width på..?
+	@if length($mqValue) == 3 {
+		@media screen and (min-width: nth($mqValue, 3)) {
+			@content;
+		}
+	}
+}
+
+ 
+//STANDARD
+html {
+	font-size: 62.5%; 
+	height: 100%;
+}
+
+body { 
+	background-color: $color4;
+	height: 100%;
+} 
+
+main {
+	flex: 1 0 auto;
+	position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $font1;
+	line-height: 1.6;
+}
+
+h1 {
+	font-size: 2.8rem;
+}
+
+h2 {
+	font-size: 2rem;
+	line-height: 1.4;
+	padding-bottom: 0.8rem;
+}
+
+h3 {
+	font-size: 1.9rem;
+	margin-top: 1rem;
+	line-height: 1.4;
+	padding-bottom: 0.6rem;
+}
+
+h4 {
+	font-size: 1.5rem;
+	line-height: 1.3;
+	font-weight: 600;
+	padding-bottom: 0.8rem;	
+}
+
+h5 {
+	font-size: 1.3rem;
+	font-family: $font2;
+	padding-right: 1rem;
+}
+
+h6 {
+	font-size: 1.4rem;
+}
+
+p, a {
+	font-family: $font2;
+	font-size: 1.6rem;
+	line-height: 1.5;
+	color: $textColor;
+	padding-bottom: 1.5rem;
+}
+
+p {
+	@include mq(340px) {
+		line-height: 1.6;
+	}
+}
+
+i, em {
+	font-style: italic;
+}
+
+b, strong {
+	font-weight: bold;
+}
+
+//LISTS
+ol {
+	list-style-type: decimal;
+	list-style-position: inside;	
+}
+
+ol li {
+	font-family: $font2;
+	font-size: 1.5rem;
+	line-height: 1.8;
+}
+
+
+//LINKS
+a {
+	color: $color2;
+}
+
+a:hover {
+	color: $color7;
+}
+
+
+
+//Gör så att footern hamnar längst ned/ följer med sidan
+#container {
+	display: flex;
+  	flex-direction: column;
+	min-height: 100vh;
+}
+
+
+//SURROUNDS
+.wrapper {
+	margin: 2.5rem 6rem;
+
+	@include mq(600px) {
+		margin: 2.5rem 3rem;
+	}
+}
+
+.smallWrapper {
+	display: inline-block;
+
+	@include mq(500px) {
+		width: 80%;
+		margin: auto;
+	}
+}
+
+.smallerWidth {
+	width: 50rem;
+
+	@include mq(650px) {
+		width: 100%;
+	}
+}
+
+.surroundPersonal {
+	margin-bottom: 5rem;
+	text-align: right;
+}
+
+#editButtonsToMiddle {
+	text-align: center;
+}
+
+
+//DESKTOPMENU	
+#desktopNav {
+	width: 100%;
+	display: flex;
+
+	@include mq(500px) {
+		display: none;
+	}
+
+	ul {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+	
+	a { 
+		font-family: $font4;
+		font-size: 2rem;
+		font-weight: 700;
+		color: $color5;
+	}
+
+ 	a:hover {
+	 	color: $color7;
+		text-decoration: none;
+	}
+}
+
+
+//SMALLER SCREEN MENU
+.toggleNavigation {
+
+	@include mq(1, 1, 501px) {
+		display: none;
+	}
+
+	@include mq(500px) {
+
+		ul {
+			display: block;
+			overflow: hidden;
+			list-style: none;
+			background: $color3;  
+			text-transform: uppercase;
+			width: 100%;
+			height: auto;
+		}
+
+		li {
+			float: none;
+			font-family: $font2;
+			text-align: right;
+			font-size: 1.7rem;
+		}
+	
+		a:link, a:visited, a:hover {
+			display: block;
+			border-bottom: 0.1em solid $color1;
+			color: $color1;
+    		padding-right: 3rem;
+    		padding-top: 1.5rem;
+			text-decoration: none;
+
+			@include mq(340px) {
+				padding-right: 1.4rem;
+			}
+		}
+	}
+}
+
+
+//TOP OF PAGE
+header {
+	align-items: center;
+	background-color: $color1;
+	padding-bottom: 1.5rem;
+
+	@include mq(340px) {
+		display: block;
+	}
+}
+
+#topBorder {
+	height: 2.5rem;
+	background-color: #e2cabb;
+}
+
+.headerText {
+	font-family: $font4;
+	font-size: 3rem;
+	text-align: center;
+}
+
+#nameInHeader {
+	@extend .headerText;
+	margin-top: 4rem;
+	margin-bottom: 0.5rem;
+}
+
+#nameInHeaderGet {
+	@extend .headerText;
+	margin-top: 5rem;
+	margin-bottom: 2.5rem;
+}
+
+#roleInHeader {
+	@extend .headerText;
+	margin-bottom: 5rem;
+}
+
+.emptyHeaderHight {
+	height: 7rem;
+}
+
+//Strecken mellan menyalternativen
+.border {
+	flex-basis: 0;
+	height: 0.1rem;
+	width: 100%;
+	background-color: black;
+	margin: auto 1.5rem;
+	flex-grow: 1;
+}
+
+.border2 {
+	@extend .border;
+	flex-grow: 2;
+}
+
+
+//TOP OF PAGE FRONTEND
+#firstname, #lastname {
+	display: inline-block;
+
+	@include mq(330px) {
+		display: block;
+	}
+}
+
+#firstname {
+	margin-right: 1rem;
+
+	@include mq(330px) {
+		margin-right: 0;
+		margin-bottom: 1rem;
+	}
+}
+
+#lastname {
+	margin-left: 1rem;
+
+	@include mq(330px) {
+		margin-left: 0;
+	}
+}
+
+
+//ASIDE
+aside { 
+	width: 25rem;
+	background-color: #5b5b5b;
+	position: absolute;
+	height: 100%;
+
+	@include mq(600px) {
+		width: 100%; 
+		height: auto;
+		position: relative;
+		background-image: url(../images/upprepadbakgrund.jpg);
+	}
+}
+
+.alignWithAside { 
+
+	//För att bakgrundsfärgen ska täcka men inte ge scrollbar
+	overflow: hidden;
+	margin-left: 19rem;
+	margin-right: -6rem;
+	padding-left: 6rem;
+	padding-right: 6rem;
+
+	@include mq(600px) {
+		margin-left: -3rem;
+		margin-right: -3rem;
+		padding-left: 3rem;
+		padding-right: 3rem;
+	}
+} 
+
+.wrapperAside {
+	display: inline-block;
+	margin: auto;
+	width: 80%;
+
+	@include mq(600px) {
+		width: 25rem;
+		background-color: #5b5b5b;
+		padding-right: 2rem;
+		margin: 0;
+	}
+}
+
+
+//TITLES
+.mainTitle {
+	display: inline-block;
+	font-family: $font1;
+	line-height: 1.6;
+	font-size: 2.8rem;
+}
+
+#contactTitle, #cityTitle, #languageTitle {
+	text-transform: uppercase;
+	font-family: $font5;
+	font-size: 2rem;
+	color: $color5;
+	text-align: right;
+	display: inline-block;
+	padding: 1rem;
+	margin: 2rem 0 1rem 0; 
+	width: 18rem;
+	background: linear-gradient(310deg, #F8EBE3 70%, transparent calc(70% + 2px));
+}
+
+#workTitle1, #workTitle2, #workTitle3, #workTitle4, #workTitle5, #workTitle6, 
+#courseTitle1, #courseTitle2, #courseTitle3, #courseTitle4, #courseTitle5, #courseTitle6, #courseTitle7,
+#webTitle { 
+	font-weight: 700; 
+	font-size: 2rem;
+	color: $color5;
+	margin: 2rem 0 0.5rem 0;
+}
+
+#courseTitle7, #course7 {
+	text-align: right;
+}
+
+
+//EDIT
+#editPersonal1, #editPersonal1 a {
+	@extend .headerText;
+	color: $color5;
+	font-size: 3rem;
+	margin: -5rem 0 1rem 0;
+	cursor: pointer;
+}
+
+#editPersonal2 a, #editPersonal3 a, #editPersonal4 a, #editLanguage a {
+	color: $color6;
+	font-size: 2rem;
+	display: inline-block;
+	cursor: pointer;
+}
+
+
+//CANCEL AND SAVE
+#editPersonal1save, #editPersonal1cancel,
+#editPersonal2save, #editPersonal2cancel,
+#editPersonal3save, #editPersonal3cancel,
+#editPersonal4save, #editPersonal4cancel,
+#editLanguageSave, #editLanguageCancel {
+	display: inline-block;
+	margin: 1.5rem 0 3rem 0.5rem;
+}
+
+#editPersonal1save a, #editPersonal1cancel a,
+#editPersonal2save a, #editPersonal2cancel a,
+#editPersonal3save a, #editPersonal3cancel a,
+#editPersonal4save a, #editPersonal4cancel a,
+#editLanguageSave a, #editLanguageCancel a {
+	font-size: 1.3rem;
+	color: $color5;
+	background-color: #F8EBE3;
+	padding: 0.4rem;
+	border: 1px solid #F8EBE3;
+	border-radius: 0.3rem;
+}
+
+#editPersonal1save, #editPersonal1cancel {
+	margin: 3rem 0.25rem;
+}
+
+#editPersonal1save a, #editPersonal1cancel a {
+	background-color: white;
+	border: 1px solid $color3;
+	border-radius: 0.3rem;
+	padding: 0.7rem;
+}
+
+//CANCEL AND SAVE DISABLED
+//Gör så att det inte blir mellanrum när det inte behövs
+#editPersonal1save:empty , #editPersonal1cancel:empty,
+#editPersonal2save:empty, #editPersonal2cancel:empty,
+#editPersonal3save:empty, #editPersonal3cancel:empty,
+#editPersonal4save:empty, #editPersonal4cancel:empty,
+#editLanguageSave:empty, #editLanguageCancel:empty,
+#editLanguageInfoText:empty {
+	display: none;
+}
+
+//POINTER WHEN HOVER
+#editPersonal1save a:hover, #editPersonal1cancel a:hover,
+#editPersonal2save a:hover, #editPersonal2cancel a:hover,
+#editPersonal3save a:hover, #editPersonal3cancel a:hover,
+#editPersonal4save a:hover, #editPersonal4cancel a:hover,
+#editLanguageSave a:hover, #editLanguageCancel a:hover {
+	cursor: pointer;
+}
+
+//Hämtar även alla som blivit tilldelade ID:n
+[id^="editWebInput"], [id^="deleteWebInput"], [id^="editImageInput"],
+#work5, #work6, 
+#course5, #course6, 
+#web5, #web6, 
+#saveAddedWork, #cancelAddWork, 
+#saveAddedCourse, #cancelAddCourse,
+#saveAddedWeb, #cancelAddWeb {
+	cursor: pointer;
+}
+
+//Extra mellanrum under varje angivet språk
+.bottomSpace {
+	margin-bottom: 0.3rem;
+}
+
+
+//PRESENTATION ALL
+.divMedFlex, 
+#listedWork, #listedWork a,
+#listedCourses, #listedCourses a, 
+#listedWeb, #listedWeb a {
+	display: flex;
+	flex-flow: row wrap;
+	font-family: $font2;
+	font-size: 1.6rem;
+	line-height: 1.5;
+	color: $color5;
+	padding-bottom: 0rem;
+} 
+
+
+//PRESENTATION COURSES
+#surroundOnlyCoursename {
+	font-family: $font2;
+	font-size: 1.6rem;
+	line-height: 1.5;
+	color: $color5;
+	padding-bottom: 0rem;
+}
+
+.surroundCourses {
+	width: 15rem;
+	margin-right: 2rem;
+
+	@include mq(1100px) {
+		flex-grow: 1;
+		justify-content: space-between;	
+	}
+
+}
+
+.firstBlock, .secondBlock {
+	display: flex;
+	width: 50%;
+
+	@include mq(1100px) {
+		width: 100%;
+	}
+}
+.secondBlock .surroundCourses:nth-of-type(3) {
+	margin-right: 0;
+}
+
+.alignRight, .alignRightEdit {
+	text-align: right;
+}
+
+//Tar bort extra space som "lägg-till"-knappen lägger till
+.alignRightEdit:first-child() {
+	padding-top: -2rem;
+}
+
+//Sneda delen av bakgrundsfärgen
+//vw gör formen att formen följer med skärmstorleken 
+#backgroundColorLine {
+	margin: 1rem -6rem;
+	border-right: 100vw solid $color8;
+	border-top: 10vw solid transparent;
+
+	//Minskar "paddingen" uppåt för större skärmar
+	@include mq(1, 1, 1200px) {
+		border-top: 6vw solid transparent;	
+	}
+}
+
+#backgroundColor { 
+	background-color: $color8;
+	margin: 1rem -6rem;
+	margin-top: -1rem;
+	padding: 1rem 6rem 3rem 6rem;
+}
+
+
+//PRESENTATION WEB
+#hideWhenNotActive, #webBlock {
+	width: 100%;
+}
+
+.surroundWeb, .surroundAddWeb,
+#webBlockImageDiv, #webBlockTextDiv {
+	width: 45%;
+	display: inline-block;
+}
+
+#webBlockImageDiv {
+	width: 40%;
+	margin-right: 5%;
+
+	@include mq(1000px) {
+		display: block;
+		width: 30rem;
+		margin: 2rem 0 0.5rem 0;
+	}
+
+	@include mq(700px) {
+		width: 25rem;
+	}
+
+	@include mq(600px) {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+#webImage, [id^="webImageInput"] {
+	width: 100%;
+	max-height: 40rem;
+}
+
+#editWebImage {
+	width: 30rem;
+	text-align: center; 
+	margin: auto;
+	border: 3px solid $color3;
+	border-radius: 0.5rem;
+	padding: 2.5rem 1rem 2rem 1rem;
+}
+
+#webBlockTextDiv {
+	width: 50%;
+	border-radius: 0.2rem;
+	padding: 1rem;
+	vertical-align: top;
+	border-bottom: 3px solid $color1;
+	border-left: 3px solid $color3;
+
+	@include mq(1000px) {
+		display: block;
+		width: 30rem;
+		border-left: none;
+		border-bottom: 3px solid $color3;
+		margin-bottom: 5rem;
+	}
+
+	@include mq(700px) {
+		width: 25rem;
+	}
+
+	@include mq(600px) {
+		width: 80%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+//Ger mellanrum mellan blocken
+.surroundWeb:first-child,
+.surroundAddWeb:first-child {
+	margin-left: 0;
+}
+
+.surroundWeb:last-child,
+.surroundAddWeb:last-child {
+	margin-right: 0;
+}
+
+#web2, [id^="webNameInput"] {
+	font-weight: 700;
+}
+
+#web3, [id^="webUrlInput"] { 
+	font-style: italic;
+	font-size: 0.8em;
+}
+
+#web5, #web6, #saveAddedWeb, #cancelAddWeb,
+[id^="editWebInput"], [id^="deleteWebInput"], [id^="editImageInput"] {
+	display: inline-block;
+	margin-right: 2rem;
+}
+
+
+//MESSAGES
+#errorMessageCourse:empty,
+#errorMessageWork:empty,
+[id^="errorMessageWeb"]:empty,
+#errorMessageAddWeb:empty,
+#errorMessagePersonal1:empty,
+#errorMessagePersonal3:empty,
+#errorMessagePersonal4:empty {
+	display: none;
+}
+
+.errorMessage,
+#errorMessageWork, 
+#errorMessageCourse, 
+[id^="errorMessageWeb"],
+#errorMessageAddWeb {
+
+	font-family: $font2;
+	font-size: 1.8rem;
+	line-height: 1.5;
+	color: $textColor;
+	padding: 1rem;
+	margin: 3rem 0;
+	border: 2px dotted $color3;
+	display: inline-block;
+	margin-left: 6rem;
+
+	@include mq(340px) {
+		margin-left: 4rem;
+	}
+}
+
+#errorMessageWork, 
+#errorMessageCourse, 
+[id^="errorMessageWeb"],
+#errorMessageAddWeb {
+	margin-left: 0;
+}
+
+#errorMessageAddWeb {
+	margin-top: 0.5rem;
+	margin-bottom: 3rem;
+}
+
+.errorMessageProfilePicture,
+#editLanguageInfoText,
+#errorMessagePersonal1,
+#errorMessagePersonal3,
+#errorMessagePersonal4 {
+	font-family: $font2;
+	font-size: 1.2rem;
+	color: $textColor;
+	background-color: white;
+	width: 80%;
+	padding: 1rem;
+	margin: 1rem 0;
+	border: 2px solid $color3;
+	display: inline-block;
+
+	@include mq(600px) {
+		width: 75%;
+	}
+}
+
+#errorMessagePersonal1 {
+	display: block;
+	width: 20rem;
+	margin: auto;
+}
+
+
+//FORM
+::placeholder {
+	font-size: 0.9em;
+}
+
+
+//INPUT
+input {
+	border: 1px solid #c18240;
+	border-radius: 0.5rem;
+	width: 80%;
+	font-family: $font2;
+	font-size: 1.6rem;
+	line-height: 1.5;
+	color: $textColor;
+	padding-left: 1rem;
+	background-color: transparent;
+}
+
+#firstnameInput,
+#lastnameInput,
+#myWorktitleInput {
+	font-family: $font4;
+	color: $color5;
+	font-size: 3rem;
+}
+
+//Yrkestiteln ska alltid vara centrerad
+#myWorktitleInput {
+	text-align: center;
+}
+
+//Utseende vid editering
+#firstname input,
+#lastname input,
+#myWorktitle input {
+	border: none;
+	border-bottom: 2px solid $color3;
+	text-align: center;
+}
+
+#editProfilePicture input,
+#editWebImage input,
+#phonePersonal input,
+#emailPersonal input,
+#cityPersonal input,
+#speakLanguage input {
+	border: 1px solid lightgrey;
+	background-color: $color6;
+	color: $color5;
+	padding-left: 0;
+	padding-right: 1rem;
+}
+
+#imagePersonal, #imagePersonalInput {
+	width: 15rem;
+	display: inline-block;
+	margin: 2rem auto 0 auto;
+}
+
+#phonePersonal, #emailPersonal, #cityPersonal, #speakLanguage,
+#phonePersonalInput, #emailPersonalInput, #cityPersonalInput, #speakLanguageInput {
+	font-family: $font6;
+	text-transform: uppercase;
+	font-size: 1.2rem;
+	color: $color6;
+	text-align: right;
+	margin-bottom: 0.3rem;
+
+	@include mq(500px) {
+		font-weight: 600;
+	}
+} 
+
+input, 
+#editWorkMargin, #deleteWorkMargin,
+#editCourseMargin, #deleteCourseMargin {
+	margin-bottom: 0.5rem;
+	font-family: $font2;
+	font-size: 1.6rem;
+	line-height: 1.5;
+	color: $textColor;
+}
+
+//###Hittade verkligen inte vad som gjorde att det hamnade ojämnt utan det här
+#editWorkMargin, #deleteWorkMargin,
+#editCourseMargin, #deleteCourseMargin {
+	padding-top: 2.3px;
+}
+
+#editProfilePicture input {
+	font-size: 1.3rem;
+}
+
+#editWebImage input {
+	font-size: 1.4rem;
+}
+
+//INPUT DISABLED
+input:disabled {
+	border: none;
+	padding-left: 0;
+	width: 100%;
+}
+
+/*För- och efternamn vägrade lägga sig centrerat bredvid varandra hur jag än försökte efter att 
+jag gjort dom till input-element, därav den här lösningen... */
+#firstname input:disabled {
+	text-align: right;
+
+	
+	@include mq(650px) {
+		text-align: center;
+		//Vägrar lägga sig i block annars för att koden till frontend-sidan overridar
+		width: 35rem;
+	}
+}
+
+#lastname input:disabled {
+	text-align: left;
+
+	@include mq(650px) {
+		text-align: center;
+		width: 35rem;
+	}
+}
+
+
+//Inget understruket när editering ej är aktiverad
+#firstname input:disabled,
+#lastname input:disabled,
+#myWorktitle input:disabled {
+	border: none;
+	margin-bottom: 0;
+}
+
+#phonePersonal input:disabled,
+#emailPersonal input:disabled,
+#cityPersonal input:disabled,
+#speakLanguage input:disabled {
+	border: none;
+	background-color: inherit;
+	color: $color6;
+	padding-right: 0;
+}
+
+
+
+//INPUT ALWAYS ENABLED
+#loginForm input,
+#loginForm label, 
+#loginForm textarea,
+#loggingOutForm input {
+	font-family: $font2;
+	font-size: 1.3rem;
+	color: $textColor;
+	border: 1px solid $color6;
+	box-shadow: 0.2px 0.2px 0.2px 2px $color3;
+}
+
+#loginForm input[type="text"], #loginForm input[type="password"] {
+	width: 100%;
+	height: 3.5rem;
+	border-radius: 0.5rem;
+	border: none;
+	padding-left: 1rem;
+	margin-bottom: 1.5rem;
+
+	@include mq(700px) {
+		//gör tydligare då box-shadow inte syns på vissa mobiler
+		border: 2px solid $color3;
+		width: 90%;
+	}
+}
+
+#loggingOutForm input[type="submit"],
+#loginForm input[type="submit"],
+#loginForm input[type="button"] {
+	width: auto;
+	padding: 1.5rem;
+	margin: 0 1rem 1rem 0;
+	color: $color6;
+	font-size: 1.8rem;
+	border-radius: 0.5rem;
+	box-shadow: $shadow;
+	cursor: pointer;
+}
+
+#loginForm input[type="submit"] {
+	background: $color3;
+	padding-left: 2rem;
+	padding-right: 2rem;
+	color: $textColor;
+}
+
+#loggingOutForm input[type="submit"],
+#loginForm input[type="button"] {
+	background: $color1;
+	color: $buttonTextColor;
+}
+
+
+//BUTTONS
+.baseButton {
+	padding: 1.5rem;
+	margin: 1rem;
+	font-size: 1.8rem;
+	border-radius: 0.5rem;
+	box-shadow: 2px 3px 5px darkgrey;
+	cursor: pointer; 
+}
+
+/*
+#updatePersonal {
+	@extend .baseButton;
+	background: hotpink; //###
+	color: $color1;
+	border-radius: 1.5rem;
+	margin-top: -1.5rem;
+}*/
+
+
+#readMoreButtonWork, 
+#readMoreButtonCourses, 
+#readMoreButtonWeb {
+	font-family: $font2;
+	font-size: 1.3rem;
+	display: inline-block;
+	padding: 0.3rem 0.5rem;
+	margin-top: 1.3rem;
+	border-left: 0.1rem solid black;
+	border-right: 0.1rem solid black;
+	border-radius: 0.4rem;
+	cursor: pointer;
+}
+
+#addWorkButton, #addCourseButton, #addWebButton {
+	display: inline-block;
+	border: 1px solid #d3ae97;
+	border-radius: 0.5rem;
+	padding: 0.8rem;
+	margin: 2rem;
+	font-family: $font2;
+	font-size: 1.4rem;
+	color: #d3ae97;
+	vertical-align: super;
+	cursor: pointer;
+}
+
+#addWorkButton:hover, #addCourseButton:hover, #addWebButton:hover {
+	color: #c18240;
+	font-size: 1.5rem;
+	border: 1px solid #c18240;
+}
+
+#logOutButton {
+	margin: 2rem auto 3rem auto;
+	text-align: center;
+}
+
+#logOutButton a {
+	padding: 0.8rem;
+	border-radius: 0.5rem;
+	border: 2px solid $color3;
+}
+
+
+//FOOTER
+//Ger hela footern färg även när bredden minskas
+#footerWrapper {
+	background-color: $color1;
+	flex-shrink: 0;
+}
+
+#footer {
+	display: flex;
+	justify-content: space-between;
+	flex-flow: row wrap;
+    margin: 0 6rem;
+	padding: 2rem 0;
+	color: $color5;
+
+	@include mq(1, 1, 751px) {
+		flex-direction: row;
+	}
+
+	@include mq(340px) {
+		display: block;
+		margin: 0 4rem;
+	}
+
+	ul li {
+		font-family: $font3;
+		font-size: 1.3rem;
+		line-height: 1.5;
+
+		@include mq(340px) {
+			padding: 0.3rem;
+		}
+	}
+
+	//Mailadressen
+	a { 
+		font-family: $font3;
+		font-size: 1.3rem;
+		text-decoration: underline;
+	}
+
+	a:hover {
+		color: $color7;
+	}
+}
+
+#footerLeft, #footerRight {
+	
+	@include mq(1, 1, 751px) {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 40%;
+	}
+}
+
+#footerRight {
+	
+	@include mq(340px) {
+		text-align: left;
+		padding-top: 0.3rem;
+	}
+}
+
+
+
+//OTHER
+//Ger mellanrum mellan textstycken
+.separator {
+	height: 3rem;
+}
+
+.smallSeparator {
+	height: 2rem;
+}
+
+//Mellanrum för JavaScript-utskrifter
+#marginElement {
+	margin-bottom: 4rem;
+}
+
+#smallMarginElement {
+	margin-bottom: 2rem;
+}
+
+#superSmallMarginElement {
+	margin-bottom: 1rem;
+}
